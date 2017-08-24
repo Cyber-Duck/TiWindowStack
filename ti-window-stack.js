@@ -1,7 +1,7 @@
 /**
  * An Alloy widget to manage windows stack in same code for iOS and Android, with drawer support
  *
- * more https://github.com/Cyber-Duck/TiWindowStack
+ * more https://github.com/Cyber-Duck/ti-window-stack
  */
 function WindowStack()
 {
