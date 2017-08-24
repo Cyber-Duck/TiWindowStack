@@ -1,7 +1,7 @@
 /**
  * An Alloy widget to manage windows stack in same code for iOS and Android, with drawer support
  *
- * more https://github.com/HazemKhaled/TiWindowStack
+ * more https://github.com/Cyber-Duck/TiWindowStack
  */
 function WindowStack()
 {
@@ -172,9 +172,29 @@ function WindowStack()
      *
      * @return {Number}
      */
-    this.size = function()
+    this.getSize = function()
     {
         return windows.length;
+    };
+
+    /**
+     * Clarify if the current stack has more than one root level or not.
+     *
+     * @return {Boolean}
+     */
+    this.isRootLevel = function()
+    {
+        return windows.length < 1;
+    };
+
+    /**
+     * Clarify if the current stack has more than one root level or not.
+     *
+     * @return {Boolean}
+     */
+    this.isNotRootLevel = function()
+    {
+        return windows.length > 0;
     };
 
     /**
