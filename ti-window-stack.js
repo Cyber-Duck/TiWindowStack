@@ -1,7 +1,7 @@
 /**
  * An Alloy widget to manage windows stack in same code for iOS and Android, with drawer support
  *
- * more https://github.com/Cyber-Duck/ti-window-stack
+ * more https://github.com/Cyber-Duck/TiWindowStack
  */
 function WindowStack()
 {
@@ -53,7 +53,7 @@ function WindowStack()
     /**
      * Set external created NavigationWindow
      *
-     * @param  {Ti.UI.NavigationWindow} _navigationWindow NavigationWindow to set.
+     * @param  {Ti.UI.iOS.NavigationWindow} _navigationWindow NavigationWindow to set.
      * @return {void}
      */
     this.setNavigationWindow = function(_navigationWindow)
@@ -205,7 +205,7 @@ function WindowStack()
     /**
      * Pop window from the stack.
      *
-     * @param  {Ti.UI.Window/Ti.UI.View} _window Window/View to open
+     * @param  {Ti.UI.Window/Ti.UI.View} _window Window or View to close
      * @return {void}
      */
     this.close = function(_window)
@@ -218,7 +218,7 @@ function WindowStack()
     };
 
     /**
-     * [description]
+     * Closes the most recent openned `Ti.UI.Window` in the stack.
      *
      * @return {void}
      */
