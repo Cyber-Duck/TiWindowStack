@@ -1,4 +1,4 @@
-# TiWidowStack
+# ti-widow-stack
 
 Manage iPhone and Android windows in same code base.
 
@@ -7,6 +7,78 @@ Manage iPhone and Android windows in same code base.
 Download the latest distribution [ZIP-file](https://github.com/HazemKhaled/TiWidowStack/releases) and consult the [Titanium Documentation](http://docs.appcelerator.com/titanium/latest/#!/guide/Using_a_Module) on how install it, or simply use the [gitTio CLI](http://gitt.io/cli):
 
 `$ gittio install ti-window-stack`
+
+## Public methods
+
+### `setNavigationWindow(_navigationWindow)`
+
+Set external created NavigationWindow.
+
+* ___navigationWindow__ `Ti.UI.iOS.NavigationWindow` NavigationWindow to set.
+
+### `setTargetInDrawer(targetInDrawer)`
+
+Setter of targetInDrawer.
+
+* __targetInDrawer__ `Number` Constants: `WindowStack.CENTER_WINDOW`, `WindowStack.RIGHT_WINDOW` or `WindowStack.LEFT_WINDOW`.
+
+### `open(_window, drawer, params)`
+
+Open window into the stack, you can pass instance from nl.fokkezb.drawer to open this window into drawer center window.
+
+* ___window__ `Ti.UI.Window/Ti.UI.View` Window or View to open.
+* __drawer__ `nl.fokkezb.drawer` Drawer instance. (Optional)
+* __params__ `openWindowParams` Animation or display properties to use when opening the window. (Optional)
+
+### `getSize()`
+
+Retrieve the size of the current window stack as a `Number`.
+
+### `isRootLevel()`
+
+Clarify if the current stack has more than one root level or not by returning a `Boolean`.
+
+### `isNotRootLevel()`
+
+Clarify if the current stack has more than one root level or not by returning a `Boolean`.
+
+### `close(_window)`
+
+Pop a specific `Ti.UI.Window` from the stack.
+
+* ___window__ `Ti.UI.Window/Ti.UI.View` Window or View to close.
+
+### `back()`
+
+Closes the most recent openned `Ti.UI.Window` in the stack.
+
+### `home(_params)`
+
+By default, closes all the windows, one after the other, starting for the current window. User sees all the windows getting closed.
+
+* ___params__ `Array` _params.animated: Controls wether to animate when all windows are getting closed or not.
+
+### `destroy(drawer, closeCallBack)`
+
+Close all Windows, close the navigationWindow or drawer.
+
+* __drawer__ `nl.fokkezb.drawer` Drawer to close. (Optional)
+* __closeCallBack__ `Callable` Will call it after close last screen. (Optional)
+
+## Events
+
+Whenever a `Ti.UI.Window` is openned or closed by our library, we'll trigger a `ti-window-stack:sizechanged` event which payload will be the one coming from the according Titanium event `open` or `close`.
+
+This is pretty useful when you want to listen to the size of the stack and act upon within the UI of your application. Let's say you have a main menu button visible or not within the UI and you'd like to inject it or not depending on how many levels your stack has:
+
+```js
+$.window.addEventListener('ti-window-stack:sizechanged', function (e) {
+    if (Alloy.Globals.windowStack.getSize() > 0) {
+        // e.source --> Ti.UI.Window
+        e.source.LeftNavButton = Alloy.createController("menuButton").getView();
+    }
+});
+```
 
 ## Examples
 
