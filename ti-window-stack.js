@@ -69,8 +69,8 @@ function WindowStack()
      */
     this.setTargetInDrawer = function (targetInDrawer)
     {
-        if ([that.CENTER_WINDOW, that.RIGHT_WINDOW, that.LEFT_WINDOW].indexOf(targetInDrawer) !== -1){
-            this.targetInDrawer = targetInDrawer;
+        if ([that.CENTER_WINDOW, that.RIGHT_WINDOW, that.LEFT_WINDOW].indexOf(targetInDrawer) !== -1) {
+            that.targetInDrawer = targetInDrawer;
         }
     };
 
@@ -87,6 +87,16 @@ function WindowStack()
     {
         drawer = drawer || false;
         params = params || {};
+
+        // On open the window --> trigger useful event
+        _window.addEventListener('open', function(e) {
+            _window.fireEvent('ti-window-stack:sizechanged', e);
+        });
+        // On close the window --> update the windows array + trigger useful event
+        _window.addEventListener('close', function(e) {
+            windows = _.without(windows, _window);
+            _window.fireEvent('ti-window-stack:sizechanged', e);
+        });
 
         if (IOS) {
             // Create navigationWindow if we don't have, or if we have side menu
@@ -160,11 +170,6 @@ function WindowStack()
                 _window.open(params);
             }
         }
-
-        // On close the window update the windows array
-        _window.addEventListener('close', function() {
-            windows = _.without(windows, _window);
-        });
     };
 
     /**
@@ -184,7 +189,7 @@ function WindowStack()
      */
     this.isRootLevel = function()
     {
-        return windows.length < 1;
+        return windows.length === 0;
     };
 
     /**
